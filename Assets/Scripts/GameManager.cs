@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class GameManager : MonoBehaviour
     public GameObject resultImage;
     public GameObject tutorialResult;
     public GameObject wrongImage;
+    public GameObject missTutorial;
 
     public void SelectAnswer(int answerNumber)
     {
@@ -32,10 +34,10 @@ public class GameManager : MonoBehaviour
 
     IEnumerator ShowTutorialResult()
     {
-        // 正解！を1秒表示
+        // 「正解！」を1秒表示
         yield return new WaitForSeconds(1f);
 
-        // 正解！を消す
+        // 「正解！」を消す
         resultImage.SetActive(false);
 
         // リザルト画面を表示
@@ -44,9 +46,25 @@ public class GameManager : MonoBehaviour
 
     IEnumerator HideWrongAfterDelay()
     {
-        // 不正解を1秒表示
+        // 「不正解！」を1秒表示
         yield return new WaitForSeconds(1f);
 
+        // 「不正解！」を消す
         wrongImage.SetActive(false);
+    }
+
+    public void ShowMissTutorial()
+    {
+        // リザルトを閉じる
+        tutorialResult.SetActive(false);
+
+        // ミスチュートリアルを表示
+        missTutorial.SetActive(true);
+    }
+
+    public void GoToStage01()
+    {
+        // Stage01シーンへ移動
+        SceneManager.LoadScene("Stage1");
     }
 }
